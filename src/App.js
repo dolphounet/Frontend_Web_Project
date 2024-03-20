@@ -12,7 +12,7 @@ export default function ListeDeroulante() {
             <select value={selectedOption} onChange={handleChange}>
                 <option value="https://exemple.com/chemin/vers/banana.jpg">Banane</option>
                 <option value="https://exemple.com/chemin/vers/lime.jpg">Citron vert</option>
-                <option value="https://exemple.com/chemin/vers/coconut.jpg">Noix de coco</option>
+                <option value="https://github.com/dolphounet/Frontend_Web_Project/blob/dev/src/coconut.jpg">Noix de coco</option>
                 <option value="https://exemple.com/chemin/vers/mango.jpg">Mangue</option>
             </select>
             <p>Option sélectionnée: {selectedOption}</p>
