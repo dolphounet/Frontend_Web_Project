@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./LoginScreen.css";
+import Accounts from "./Accounts.js"
 
 function Login({ switchMethod, display }) {
   const [username, setUserName] = useState();
@@ -50,7 +51,19 @@ function Signup({ switchMethod, display }) {
   function handleSubmit(event) {
     event.preventDefault();
     if (password && password === passwordConfirm) {
+      
       alert(password);
+      const { account, mdp } = { account: username, mdp: password};
+      console.log(password)
+      console.log({ account, mdp })
+      fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ account, mdp }),
+      }).then(res => res.json()).then((res) => {
+        if (!res.success) console.log({ error: res.error.message || res.error });
+        else console.log({ account: '', mdp: '', error: null });
+      });;
     }
   }
   return (
@@ -93,6 +106,7 @@ function Signup({ switchMethod, display }) {
   );
 }
 
+
 export default function LoginScreen() {
   const [display, setDisplay] = useState(["", "none"]);
   function switchMethod() {
@@ -110,6 +124,7 @@ export default function LoginScreen() {
     <div>
       <Login display={display[0]} switchMethod={switchMethod} />
       <Signup display={display[1]} switchMethod={switchMethod} />
+      <Accounts/>
     </div>
   );
 }
