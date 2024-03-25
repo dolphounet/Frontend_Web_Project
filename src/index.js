@@ -3,12 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 //import App from "./App.test";
 //import reportWebVitals from "./reportWebVitals";
-import LoginScreen from "./LoginScreen";
+import Menu from "./components/Menu";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <LoginScreen />
+    <Menu />
   </React.StrictMode>,
 );
 
