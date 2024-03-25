@@ -1,14 +1,23 @@
 import { useState } from "react";
 import "./LoginScreen.css";
-import Accounts from "./Accounts.js"
 
 function Login({ switchMethod, display }) {
   const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [token, setToken] = useState();
   function handleSubmit(event) {
     event.preventDefault();
-    if (password) {
-      alert(password);
+    if (token) {
+      fetch('/api/comments/')
+        .then(data => data.json())
+        .then((res) => {
+          if (!res.success) console.log({ error: res.error });
+          else {
+            for(let i = 0; i < res.data.length; i++) {
+              let obj = res.data[i];
+              if (obj.account === username && obj.token === token) alert("Success !");
+          }
+          };
+        });
     }
   }
   return (
@@ -24,11 +33,11 @@ function Login({ switchMethod, display }) {
           />
         </div>
         <div className="Form-Item">
-          <label>Password</label>
+          <label>Token</label>
           <input
             type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your token"
+            onChange={(e) => setToken(e.target.value)}
           />
         </div>
         <div className="Form-Item">
@@ -45,24 +54,19 @@ function Login({ switchMethod, display }) {
 
 function Signup({ switchMethod, display }) {
   const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
-  const [passwordConfirm, setPasswordConfirm] = useState();
+  const [mail, setMail] = useState();
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (password && password === passwordConfirm) {
-      
-      alert(password);
-      const { account, mdp } = { account: username, mdp: password};
-      console.log(password)
-      console.log({ account, mdp })
+    if (mail) {
+      const { account, email } = { account: username, email: mail};
       fetch('/api/comments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ account, mdp }),
+        body: JSON.stringify({ account, email }),
       }).then(res => res.json()).then((res) => {
         if (!res.success) console.log({ error: res.error.message || res.error });
-        else console.log({ account: '', mdp: '', error: null });
+        else alert("Account created");;
       });;
     }
   }
@@ -79,19 +83,11 @@ function Signup({ switchMethod, display }) {
           />
         </div>
         <div className="Form-Item">
-          <label>Password</label>
+          <label>Email</label>
           <input
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="Form-Item">
-          <label>Confirm your password</label>
-          <input
-            type="password"
-            placeholder="Confirm your password"
-            onChange={(e) => setPasswordConfirm(e.target.value)}
+            type="email"
+            placeholder="Enter your email"
+            onChange={(e) => setMail(e.target.value)}
           />
         </div>
         <div className="Form-Item">
@@ -124,7 +120,6 @@ export default function LoginScreen() {
     <div>
       <Login display={display[0]} switchMethod={switchMethod} />
       <Signup display={display[1]} switchMethod={switchMethod} />
-      <Accounts/>
     </div>
   );
 }
