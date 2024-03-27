@@ -6,18 +6,16 @@ function Login({ switchMethod, display }) {
   const [token, setToken] = useState();
   function handleSubmit(event) {
     event.preventDefault();
-    if (token) {
-      fetch('/api/comments/')
-        .then(data => data.json())
-        .then((res) => {
-          if (!res.success) console.log({ error: res.error });
-          else {
-            for(let i = 0; i < res.data.length; i++) {
-              let obj = res.data[i];
-              if (obj.account === username && obj.token === token) alert("Success !");
-          }
-          };
-        });
+    if (token || username) {
+      const { account, mdp } = { account: username, mdp: token};
+      fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ account, mdp }),
+      }).then(res => res.json()).then((res) => {
+        if (!res.success) alert(res.error);
+        else alert("Success");;
+      });;
     }
   }
   return (
@@ -60,13 +58,13 @@ function Signup({ switchMethod, display }) {
     event.preventDefault();
     if (mail) {
       const { account, email } = { account: username, email: mail};
-      fetch('/api/comments', {
+      fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ account, email }),
       }).then(res => res.json()).then((res) => {
-        if (!res.success) console.log({ error: res.error.message || res.error });
-        else alert("Account created");;
+        if (!res.success) alert(res.error);
+        else alert("Account created ! \nYour token is " + res.token);;
       });;
     }
   }
