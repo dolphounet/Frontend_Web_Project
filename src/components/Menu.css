@@ -1,0 +1,29 @@
+.Menu {
+  align-items: left;
+  border-radius: 0.5rem 0rem 0rem 0.5rem;
+  background-color: rgb(23, 146, 153);
+  max-width: 20rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+}
+
+.Menu-Button,
+.Quit-Button {
+  color: black;
+  border-radius: 0.5rem;
+  font-size: 2rem;
+}
+.Quit-Button {
+  position: fixed;
+  top: 0;
+  right: 0;
+  align-items: center;
+}
+.Menu-Button {
+  position: fixed;
+  top: 0;
+  right: 0;
+  align-items: top;
+}
