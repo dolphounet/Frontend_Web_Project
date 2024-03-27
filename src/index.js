@@ -5,16 +5,14 @@ import "./index.css";
 //import reportWebVitals from "./reportWebVitals";
 //import Menu from "./components/Menu";
 //import Grid from "./components/Grid";
-import App from "./components/FrontTest"
+import App from "./components/FrontTest";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  //  <Grid knightPosition={[7, 4]} />
-  //</StrictMode>,
+  <StrictMode>
+    <Menu />
+    <Grid />
+  </StrictMode>,
 );
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
