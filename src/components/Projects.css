@@ -1,0 +1,14 @@
+.Save {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Save h1 {
+  margin-bottom: 0rem;
+}
+
+ul {
+  list-style-type: none;
+  margin-left: -1.5rem;
+}

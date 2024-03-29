@@ -2,6 +2,7 @@ import React, { useState, createContext, useContext } from "react";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
 import { MdOutlineLogout } from "react-icons/md";
 import LoginScreen from "./LoginScreen";
+import Projects from "./Projects";
 import "./Menu.css";
 
 export const UserContext = createContext();
@@ -66,6 +67,7 @@ export default function Menu() {
         <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
           <LoginScreen />
           <LogOut />
+          <Projects />
         </UserContext.Provider>
       </div>
     </>

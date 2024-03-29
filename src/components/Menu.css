@@ -3,10 +3,10 @@
   border-radius: 0.5rem 0rem 0rem 0.5rem;
   background-color: rgb(23, 146, 153);
   min-width: 15rem;
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .Menu-Button,
@@ -29,6 +29,7 @@
 }
 
 .LogOut-Button {
+  background: none;
   position: fixed;
   bottom: -0.5rem;
   right: -0.5rem;
