@@ -11,7 +11,7 @@ function Login({ switchMethod, display }) {
     event.preventDefault();
     if (token || username) {
       const { account, mdp } = { account: username, mdp: token };
-      fetch("/db/login", {
+      fetch("/db/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ account, mdp }),
@@ -65,7 +65,7 @@ function Signup({ switchMethod, display }) {
     event.preventDefault();
     if (mail) {
       const { account, email } = { account: username, email: mail };
-      fetch("/db/signup", {
+      fetch("/db/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ account, email }),
