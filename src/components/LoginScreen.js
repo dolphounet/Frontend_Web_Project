@@ -7,15 +7,17 @@ function Login({ switchMethod, display }) {
   function handleSubmit(event) {
     event.preventDefault();
     if (token || username) {
-      const { account, mdp } = { account: username, mdp: token};
-      fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const { account, mdp } = { account: username, mdp: token };
+      fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ account, mdp }),
-      }).then(res => res.json()).then((res) => {
-        if (!res.success) alert(res.error);
-        else alert("Success");;
-      });;
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (!res.success) alert(res.error);
+          else alert("Success");
+        });
     }
   }
   return (
@@ -57,15 +59,17 @@ function Signup({ switchMethod, display }) {
   function handleSubmit(event) {
     event.preventDefault();
     if (mail) {
-      const { account, email } = { account: username, email: mail};
-      fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const { account, email } = { account: username, email: mail };
+      fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ account, email }),
-      }).then(res => res.json()).then((res) => {
-        if (!res.success) alert(res.error);
-        else alert("Account created ! \nYour token is " + res.token);;
-      });;
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (!res.success) alert(res.error);
+          else alert("Account created ! \nYour token is " + res.token);
+        });
     }
   }
   return (
@@ -83,7 +87,7 @@ function Signup({ switchMethod, display }) {
         <div className="Form-Item">
           <label>Email</label>
           <input
-            type="email"
+            type="text"
             placeholder="Enter your email"
             onChange={(e) => setMail(e.target.value)}
           />
@@ -99,7 +103,6 @@ function Signup({ switchMethod, display }) {
     </div>
   );
 }
-
 
 export default function LoginScreen() {
   const [display, setDisplay] = useState(["", "none"]);

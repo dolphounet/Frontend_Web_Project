@@ -3,14 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 //import reportWebVitals from "./reportWebVitals";
-//import Menu from "./components/Menu";
-//import Grid from "./components/Grid";
+import Menu from "./components/Menu";
+import Grid from "./components/Grid";
 import App from "./components/FrontTest";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
     <Menu />
-    <Grid />
   </StrictMode>,
 );
 
