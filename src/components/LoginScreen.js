@@ -3,11 +3,19 @@ import "./LoginScreen.css";
 
 function Login({ switchMethod, display }) {
   const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [token, setToken] = useState();
   function handleSubmit(event) {
     event.preventDefault();
-    if (password) {
-      alert(password);
+    if (token || username) {
+      const { account, mdp } = { account: username, mdp: token};
+      fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ account, mdp }),
+      }).then(res => res.json()).then((res) => {
+        if (!res.success) alert(res.error);
+        else alert("Success");;
+      });;
     }
   }
   return (
@@ -23,11 +31,11 @@ function Login({ switchMethod, display }) {
           />
         </div>
         <div className="Form-Item">
-          <label>Password</label>
+          <label>Token</label>
           <input
             type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your token"
+            onChange={(e) => setToken(e.target.value)}
           />
         </div>
         <div className="Form-Item">
@@ -44,13 +52,20 @@ function Login({ switchMethod, display }) {
 
 function Signup({ switchMethod, display }) {
   const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
-  const [passwordConfirm, setPasswordConfirm] = useState();
+  const [mail, setMail] = useState();
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (password && password === passwordConfirm) {
-      alert(password);
+    if (mail) {
+      const { account, email } = { account: username, email: mail};
+      fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ account, email }),
+      }).then(res => res.json()).then((res) => {
+        if (!res.success) alert(res.error);
+        else alert("Account created ! \nYour token is " + res.token);;
+      });;
     }
   }
   return (
@@ -66,19 +81,11 @@ function Signup({ switchMethod, display }) {
           />
         </div>
         <div className="Form-Item">
-          <label>Password</label>
+          <label>Email</label>
           <input
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="Form-Item">
-          <label>Confirm your password</label>
-          <input
-            type="password"
-            placeholder="Confirm your password"
-            onChange={(e) => setPasswordConfirm(e.target.value)}
+            type="email"
+            placeholder="Enter your email"
+            onChange={(e) => setMail(e.target.value)}
           />
         </div>
         <div className="Form-Item">
@@ -92,6 +99,7 @@ function Signup({ switchMethod, display }) {
     </div>
   );
 }
+
 
 export default function LoginScreen() {
   const [display, setDisplay] = useState(["", "none"]);
