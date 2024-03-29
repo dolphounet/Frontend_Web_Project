@@ -25,13 +25,14 @@
   position: fixed;
   top: 0.5rem;
   right: 0.5rem;
-  align-items: top;
   max-height: 2.2rem;
 }
 
-.LogOut-Wrapper {
+.LogOut-Button {
   position: fixed;
   bottom: -0.5rem;
   right: -0.5rem;
   align-items: center;
+  font-size: 3rem;
+  color: black;
 }
