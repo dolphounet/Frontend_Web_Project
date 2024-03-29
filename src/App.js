@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from "react";
+import "./App.css";
+import Menu from "./components/Menu";
+import Images from "./components/Images";
 
-export default function ListeDeroulante() {
-    const [selectedOption, setSelectedOption] = useState("https://exemple.com/chemin/vers/coconut.jpg"); 
+export const ImagesContext = createContext({});
 
-    const handleChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
-
-    return (
-        <div>
-            <select value={selectedOption} onChange={handleChange}>
-                <option value="https://exemple.com/chemin/vers/banana.jpg">Banane</option>
-                <option value="https://exemple.com/chemin/vers/lime.jpg">Citron vert</option>
-                <option value="https://github.com/dolphounet/Frontend_Web_Project/blob/dev/src/coconut.jpg">Noix de coco</option>
-                <option value="https://exemple.com/chemin/vers/mango.jpg">Mangue</option>
-            </select>
-            <p>Option sélectionnée: {selectedOption}</p>
-            <img src={selectedOption} alt="Image sélectionnée"></img>
-        </div>
-    );
+export default function App() {
+  const [images, setImages] = useState([]);
+  fetch("/db/items", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({}),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (!res.success) alert(res.error);
+      else {
+        setImages(res.data);
+      }
+    });
+  return (
+    <ImagesContext.Provider value={{ images }}>
+      <Menu />
+      <Images />
+    </ImagesContext.Provider>
+  );
 }
-
-
