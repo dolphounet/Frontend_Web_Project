@@ -1,23 +1,20 @@
 import React, { useState } from "react";
 import Picture from "./Picture";
 import { useDrop } from "react-dnd";
-import "./App.css";
+import "../TutoDNDPedro/App.css";
 
 const PictureList = [
   {
     id: 1,
-    url:
-      "https://cdn-icons-png.flaticon.com/512/2602/2602735.png",
+    url: "https://cdn-icons-png.flaticon.com/512/2602/2602735.png",
   },
   {
     id: 2,
-    url:
-      "https://cdn.icon-icons.com/icons2/1791/PNG/512/trashcan1_114647.png",
+    url: "https://cdn.icon-icons.com/icons2/1791/PNG/512/trashcan1_114647.png",
   },
   {
     id: 3,
-    url:
-      "https://cdn-icons-png.flaticon.com/512/4812/4812459.png",
+    url: "https://cdn-icons-png.flaticon.com/512/4812/4812459.png",
   },
 ];
 
@@ -41,13 +38,12 @@ function Board({ onDrop, board, onRemove }) {
     <div className="Board" ref={drop}>
       {board.map((picture, index) => (
         <div key={index}>
-          
           <img
             src="https://cdn.icon-icons.com/icons2/930/PNG/512/cross_icon-icons.com_72347.png" // Insérer l'URL de l'image de suppression
             alt="Remove"
             className="RemoveButton"
             onClick={onRemove} // Déclencher la fonction onRemove lors du clic sur l'image
-            style={{ width: '10px', height: '10px' }} 
+            style={{ width: "10px", height: "10px" }}
           />
           <Picture url={picture.url} id={picture.id} />
         </div>
@@ -89,9 +85,19 @@ function DragDrop() {
           <Picture key={picture.id} url={picture.url} id={picture.id} />
         ))}
       </div>
-      <div style={{ display: "flex", flexDirection: "column",justifyContent: "center", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {dividedBoards.map((row, rowIndex) => (
-          <div key={rowIndex} style={{ display: "flex", justifyContent:"flex-end" }}>
+          <div
+            key={rowIndex}
+            style={{ display: "flex", justifyContent: "flex-end" }}
+          >
             {row.map((board, index) => (
               <Board
                 key={index}
