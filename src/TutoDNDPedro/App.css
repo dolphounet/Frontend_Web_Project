@@ -1,0 +1,20 @@
+.App {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .Pictures {
+    text-align: center;
+    margin: 1px;
+  }
+  img {
+    margin: 1px;
+  }
+  
+  .Board {
+    text-align: bottom;
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+  }
