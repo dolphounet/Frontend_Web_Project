@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./LoginScreen.css";
+import { UserContext } from "./Menu";
 
 function Login({ switchMethod, display }) {
+  const user = useContext(UserContext);
   const [username, setUserName] = useState();
   const [token, setToken] = useState();
   function handleSubmit(event) {
@@ -16,7 +18,10 @@ function Login({ switchMethod, display }) {
         .then((res) => res.json())
         .then((res) => {
           if (!res.success) alert(res.error);
-          else alert("Success");
+          else {
+            alert("Success");
+            user.setIsLoggedIn(username);
+          }
         });
     }
   }
@@ -105,6 +110,7 @@ function Signup({ switchMethod, display }) {
 }
 
 export default function LoginScreen() {
+  const user = useContext(UserContext);
   const [display, setDisplay] = useState(["", "none"]);
   function switchMethod() {
     const nextDisplay = display.slice();
@@ -117,10 +123,17 @@ export default function LoginScreen() {
     }
     setDisplay(nextDisplay);
   }
-  return (
-    <div>
-      <Login display={display[0]} switchMethod={switchMethod} />
-      <Signup display={display[1]} switchMethod={switchMethod} />
-    </div>
-  );
+  if (user.isLoggedIn) {
+    return (
+      <>
+        <span>logged in as {user.isLoggedIn}</span>
+      </>
+    );
+  } else
+    return (
+      <div>
+        <Login display={display[0]} switchMethod={switchMethod} />
+        <Signup display={display[1]} switchMethod={switchMethod} />
+      </div>
+    );
 }

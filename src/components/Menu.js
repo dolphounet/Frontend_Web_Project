@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
 import LoginScreen from "./LoginScreen";
 import "./Menu.css";
+
+export const UserContext = createContext();
 
 function MenuButton({ display, switchMethod }) {
   return (
@@ -25,6 +27,7 @@ function QuitButton({ switchMethod }) {
 
 export default function Menu() {
   const [display, setDisplay] = useState(["", "none"]);
+  const [isLoggedIn, setIsLoggedIn] = useState("");
   function switchMethod() {
     const nextDisplay = display.slice();
     if (nextDisplay[0] === "none") {
@@ -41,7 +44,9 @@ export default function Menu() {
       <MenuButton display={display[0]} switchMethod={switchMethod} />
       <div className="Menu" style={{ display: display[1] }}>
         <QuitButton switchMethod={switchMethod} />
-        <LoginScreen />
+        <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+          <LoginScreen />
+        </UserContext.Provider>
       </div>
     </>
   );
