@@ -1,5 +1,6 @@
 import React, { useState, createContext, useContext } from "react";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
+import { MdOutlineLogout } from "react-icons/md";
 import LoginScreen from "./LoginScreen";
 import "./Menu.css";
 
@@ -20,6 +21,24 @@ function QuitButton({ switchMethod }) {
     <div className="Quit-Wrapper">
       <button className="Quit-Button" onClick={switchMethod}>
         <RxCross1 />
+      </button>
+    </div>
+  );
+}
+
+function LogOut() {
+  const user = useContext(UserContext);
+  function handleLogOut(event) {
+    event.preventDefault();
+    user.setIsLoggedIn("");
+  }
+  if (!user.isLoggedIn) {
+    return <></>;
+  }
+  return (
+    <div className="LogOut-Wrapper">
+      <button className="LogOut-Button" onClick={handleLogOut}>
+        <MdOutlineLogout />
       </button>
     </div>
   );
@@ -46,6 +65,7 @@ export default function Menu() {
         <QuitButton switchMethod={switchMethod} />
         <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
           <LoginScreen />
+          <LogOut />
         </UserContext.Provider>
       </div>
     </>

@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import "./LoginScreen.css";
+import { FaUser } from "react-icons/fa6";
 import { UserContext } from "./Menu";
 
 function Login({ switchMethod, display }) {
@@ -19,7 +20,6 @@ function Login({ switchMethod, display }) {
         .then((res) => {
           if (!res.success) alert(res.error);
           else {
-            alert("Success");
             user.setIsLoggedIn(username);
           }
         });
@@ -125,9 +125,12 @@ export default function LoginScreen() {
   }
   if (user.isLoggedIn) {
     return (
-      <>
-        <span>logged in as {user.isLoggedIn}</span>
-      </>
+      <div className="LoggedIn">
+        <div className="User-Icon">
+          <FaUser />
+        </div>
+        <span>{user.isLoggedIn}</span>
+      </div>
     );
   } else
     return (

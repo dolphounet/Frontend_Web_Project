@@ -2,7 +2,7 @@
   align-items: left;
   border-radius: 0.5rem 0rem 0rem 0.5rem;
   background-color: rgb(23, 146, 153);
-  max-width: 20rem;
+  min-width: 15rem;
   position: fixed;
   top: 0;
   right: 0;
@@ -27,4 +27,11 @@
   right: 0.5rem;
   align-items: top;
   max-height: 2.2rem;
+}
+
+.LogOut-Wrapper {
+  position: fixed;
+  bottom: -0.5rem;
+  right: -0.5rem;
+  align-items: center;
 }
