@@ -45,25 +45,24 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
 }
 
 export default function Board() {
-  const [pictureList, setPictureList] = useState([]);
-  useEffect(() => {
-    setPictureList(useContext(ImagesContext))
-    fetchPictureList().then((data) => {
-      setPictureList(data);
-    });
-  }, []);
 
+  const pictureList = useContext(ImagesContext);
   const board = useContext(BoardContext);
   
   console.log(pictureList);
 
   const handleDrop = (id, index) => {
-    console.log(pictureList);
-    const picture = pictureList.find((picture) => picture.id === id);
-    board.setBoard((prevBoard) => {
-      let newBoards = [...prevBoard];
-      newBoards[index - 1] = [picture];
-      return newBoards;
+    // Utiliser une promesse pour attendre que pictureList soit disponible
+    new Promise((resolve) => {
+      resolve(pictureList);
+    }).then((resolvedPictureList) => {
+      console.log(resolvedPictureList);
+      const picture = resolvedPictureList.find((picture) => picture.id === id);
+      board.setBoard((prevBoard) => {
+        let newBoards = [...prevBoard];
+        newBoards[index - 1] = [picture];
+        return newBoards;
+      });
     });
   };
 
