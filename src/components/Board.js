@@ -45,11 +45,19 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
 }
 
 export default function Board() {
+  const [pictureList, setPictureList] = useState([]);
+  useEffect(() => {
+    setPictureList(useContext(ImagesContext))
+    fetchPictureList().then((data) => {
+      setPictureList(data);
+    });
+  }, []);
+
   const board = useContext(BoardContext);
-  const pictureList = useContext(ImagesContext);
+  
   console.log(pictureList);
 
-  const handleDrop = (id, index, pictureList) => {
+  const handleDrop = (id, index) => {
     console.log(pictureList);
     const picture = pictureList.find((picture) => picture.id === id);
     board.setBoard((prevBoard) => {
