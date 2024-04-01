@@ -1,22 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Picture from "./Picture";
 import { useDrop } from "react-dnd";
 import "../TutoDNDPedro/App.css";
-import { ImagesContext } from "../App";
 import { BoardContext } from "../App";
 
 function Tile({ tile, onDrop, onRemove, pictureList }) {
-  //const pictureList = useContext(ImagesContext);
   const [{ isOver }, drop] = useDrop(() => {
-    //const pictureList = useContext(ImagesContext);
     return {
       accept: "image",
       drop: (item) => {
         if (tile.name === "") {
-          onDrop(item.id, pictureList);
+          onDrop(item.id);
         } else {
           onRemove();
-          onDrop(item.id, pictureList);
+          onDrop(item.id);
         }
       },
       collect: (monitor) => ({
@@ -27,7 +24,9 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
   if (tile.name === "") {
     return <div className="Board" ref={drop} key={tile.pos}></div>;
   }
-  const picture = pictureList.find((picture) => picture.name === tile.name);
+  const picture = pictureList.find((picture) => {
+    return picture.name === tile.name;
+  });
   return (
     <div className="Board" ref={drop}>
       <div key={tile.pos}>
@@ -44,43 +43,57 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
   );
 }
 
-export default function Board({pictureList}) {
+export default function Board() {
+  const [pictureList, setPictureList] = useState([]);
+  let newImages = [];
+  useEffect(() => {
+    fetch("/db/items", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (!res.success) alert(res.error);
+        else {
+          newImages = res.data;
+          for (let i = 0; i < newImages.length; i++) {
+            newImages[i].id = i;
+          }
+          setPictureList(newImages);
+        }
+      });
+  }, []);
 
-  const pictureList = useContext(ImagesContext);
   const board = useContext(BoardContext);
-  
-  console.log(pictureList);
 
   const handleDrop = (id, index) => {
+    console.log(index);
     // Utiliser une promesse pour attendre que pictureList soit disponible
-    new Promise((resolve) => {
-      resolve(pictureList);
-    }).then((resolvedPictureList) => {
-      console.log(resolvedPictureList);
-      const picture = resolvedPictureList.find((picture) => picture.id === id);
-      board.setBoard((prevBoard) => {
-        let newBoards = [...prevBoard];
-        newBoards[index - 1] = [picture];
-        return newBoards;
-      });
-    });
-  };
-
-  const handleRemove = (index) => {
-    console.log(`remove ${index}`);
+    const picture = newImages.find((picture) => picture.id === id);
     board.setBoard((prevBoard) => {
       let newBoards = [...prevBoard];
-      newBoards[index - 1] = [];
+      newBoards[index - 1] = picture;
+      newBoards[index - 1].pos = index;
       return newBoards;
     });
   };
 
+  const handleRemove = (index) => {
+    console.log(index);
+    board.setBoard((prevBoard) => {
+      let newBoards = [...prevBoard];
+      newBoards[index - 1] = { name: "", pos: index };
+      return newBoards;
+    });
+  };
   let boards = board.board.map((tile) => {
+    console.log(tile);
     return (
       <Tile
         key={tile.pos}
         tile={tile}
-        onDrop={(id, pictureList) => handleDrop(id, tile.pos, pictureList)}
+        onDrop={(id) => handleDrop(id, tile.pos)}
         onRemove={() => handleRemove(tile.pos)}
         pictureList={pictureList}
       />
