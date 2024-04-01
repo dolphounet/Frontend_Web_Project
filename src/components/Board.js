@@ -64,16 +64,13 @@ export default function Board() {
         }
       });
   }, []);
-
   const board = useContext(BoardContext);
-
   const handleDrop = (id, index) => {
-    console.log(index);
     // Utiliser une promesse pour attendre que pictureList soit disponible
     const picture = newImages.find((picture) => picture.id === id);
     board.setBoard((prevBoard) => {
       let newBoards = [...prevBoard];
-      newBoards[index - 1] = picture;
+      newBoards[index - 1] = structuredClone(picture);
       newBoards[index - 1].pos = index;
       return newBoards;
     });
@@ -88,7 +85,6 @@ export default function Board() {
     });
   };
   let boards = board.board.map((tile) => {
-    console.log(tile);
     return (
       <Tile
         key={tile.pos}
