@@ -9,6 +9,7 @@ export const ImagesContext = createContext({});
 export const BoardContext = createContext({});
 
 export default function App({ size }) {
+  const [pictureList, setPictureList] = useState([useContext(ImagesContext)]);
   const [images, setImages] = useState([]);
   const [board, setBoard] = useState(() => {
     let newBoard = [];
@@ -39,7 +40,7 @@ export default function App({ size }) {
         <DndProvider backend={HTML5Backend}>
           <div className="App">
             <Menu />
-            <Board />
+            <Board pictureList={pictureList}/>
           </div>
         </DndProvider>
       </BoardContext.Provider>

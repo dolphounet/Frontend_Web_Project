@@ -44,7 +44,7 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
   );
 }
 
-export default function Board() {
+export default function Board({pictureList}) {
 
   const pictureList = useContext(ImagesContext);
   const board = useContext(BoardContext);
