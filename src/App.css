@@ -5,9 +5,12 @@
   align-items: center; /* Pour centrer verticalement */
   height: 100vh; /* Hauteur de la vue à 100% de la hauteur de l'écran */
   width:100vh;
+
+  
+ 
+  
   }
-
-
+    
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -45,6 +48,8 @@
 
 .board-row {
   display: flex;
+  
+
 }
 
 .board-row .Tile {
@@ -55,10 +60,19 @@ img {
   margin: -1px;
 }
 
-.Board {
+.Tile {
   text-align: bottom;
   width: 2rem;
   height: 2rem;
-  border: 1px solid black;
+  border: 0.01rem solid black;
+  opacity: 0.3;
   position: "relative"
+
+}
+
+.Tiles{
+  
+  display: flex;
+
+  
 }

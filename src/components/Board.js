@@ -22,13 +22,13 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
     };
   });
   if (tile.name === "") {
-    return <div className="Board" ref={drop} key={tile.pos} style={{position: "relative", width: "2rem", height: "2rem"}}></div>;
+    return <div className="Tile" ref={drop} key={tile.pos} style={{position: "relative", width: "2rem", height: "2rem"}}></div>;
   }
   const picture = pictureList.find((picture) => {
     return picture.name === tile.name;
   });
   return (
-    <div className="Board" ref={drop} style = {{position: "relative", width: "2rem", height: "2rem"}}>
+    <div className="Tile" ref={drop} style = {{position: "relative", width: "2rem", height: "2rem", opacity:"1"}}>
       <div key={tile.pos}>
         <img
           src="https://cdn.icon-icons.com/icons2/930/PNG/512/cross_icon-icons.com_72347.png" // Insérer l'URL de l'image de suppression
@@ -105,14 +105,18 @@ export default function Board({size}) {
 
   return (
     <>
-  <div >
+  <div style={{position:"absolute",top:"25vh", left:"15vw"}}>
     {pictureList.map((picture) => (
-      <div key={picture.id} className="picture-container">
+      <div key={picture.id} >
         <Picture url={picture.url} id={picture.id} />
       </div>
     ))}
   </div>
-  <div className="Boards">{boards}</div>
+  <div style={{marginLeft:"50vw", background: "url('https://raw.githubusercontent.com/Swar2424/Backend_WEB_Project/dev/assets/pdf_rotonde_Grill.png')",
+  backgroundSize: "35rem 25rem", 
+  backgroundRepeat: "no-repeat", 
+  backgroundPosition: "center"}}>{boards}
+  </div>
 </>
   );
 }
