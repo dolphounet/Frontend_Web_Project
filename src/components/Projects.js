@@ -12,6 +12,10 @@ function SaveProject({ projectID, setProjectID }) {
   const [projectName, setProjectName] = useState();
   const handleSubmit = (event, id) => {
     event.preventDefault();
+    if (!projectName) {
+      alert("Please enter a name for your project");
+      return;
+    }
     const project = {
       _id: id,
       name: projectName,
@@ -26,10 +30,6 @@ function SaveProject({ projectID, setProjectID }) {
       .then((res) => res.json())
       .then((res) => {
         if (!res.success) alert(res.data.error);
-        else {
-          alert("Account created ! \nYour token is " + res.data._id);
-          setProjectID(res.data._id);
-        }
       });
   };
   return (
@@ -91,7 +91,6 @@ function LoadProject({ projectID, setProjectID }) {
   });
 
   function load(id) {
-    console.log(id);
     fetch("/db/projects/getOne", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

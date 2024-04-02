@@ -22,27 +22,46 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
     };
   });
   if (tile.name === "") {
-    return <div className="Board" ref={drop} key={tile.pos} style={{position: "relative", width: "2rem", height: "2rem"}}></div>;
+    return (
+      <div
+        className="Board"
+        ref={drop}
+        key={tile.pos}
+        style={{ position: "relative", width: "2rem", height: "2rem" }}
+      ></div>
+    );
   }
   const picture = pictureList.find((picture) => {
     return picture.name === tile.name;
   });
   return (
-    <div className="Board" ref={drop} style = {{position: "relative", width: "2rem", height: "2rem"}}>
+    <div
+      className="Board"
+      ref={drop}
+      style={{ position: "relative", width: "2rem", height: "2rem" }}
+    >
       <div key={tile.pos}>
         <img
           src="https://cdn.icon-icons.com/icons2/930/PNG/512/cross_icon-icons.com_72347.png" // Insérer l'URL de l'image de suppression
           alt="Remove"
           onClick={onRemove} // Déclencher la fonction onRemove lors du clic sur l'image
-          style={{position: "absolute", top: 0, right: 0, width: "0.5rem", height: "0.5rem", zIndex: 1, cursor: "pointer"}}
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            width: "0.5rem",
+            height: "0.5rem",
+            zIndex: 1,
+            cursor: "pointer",
+          }}
         />
-        <Picture url={picture.url} id={picture.id}  />
+        <Picture url={picture.url} id={picture.id} />
       </div>
     </div>
   );
 }
 
-export default function Board({size}) {
+export default function Board({ size }) {
   const [pictureList, setPictureList] = useState([]);
   let newImages = [];
   useEffect(() => {
@@ -76,7 +95,6 @@ export default function Board({size}) {
   };
 
   const handleRemove = (index) => {
-    console.log(index);
     board.setBoard((prevBoard) => {
       let newBoards = [...prevBoard];
       newBoards[index - 1] = { name: "", pos: index };
@@ -98,21 +116,20 @@ export default function Board({size}) {
     boards.push(
       <div key={i / size} className="board-row">
         {row}
-      </div>
+      </div>,
     );
   }
 
-
   return (
     <>
-  <div >
-    {pictureList.map((picture) => (
-      <div key={picture.id} className="picture-container">
-        <Picture url={picture.url} id={picture.id} />
+      <div>
+        {pictureList.map((picture) => (
+          <div key={picture.id} className="picture-container">
+            <Picture url={picture.url} id={picture.id} />
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-  <div className="Boards">{boards}</div>
-</>
+      <div className="Boards">{boards}</div>
+    </>
   );
 }
