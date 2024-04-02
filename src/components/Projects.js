@@ -30,6 +30,7 @@ function SaveProject({ projectID, setProjectID }) {
       .then((res) => res.json())
       .then((res) => {
         if (!res.success) alert(res.data.error);
+        else setProjectID(res.data._id);
       });
   };
   return (
