@@ -7,7 +7,7 @@ import App from "./App";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
-    <App size={18} />
+    <App size={16} />
   </StrictMode>,
 );
 
