@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import Picture from "./Picture";
 import { useDrop } from "react-dnd";
-import "../TutoDNDPedro/App.css";
+import "../App.css";
 import { BoardContext } from "../App";
 
 function Tile({ tile, onDrop, onRemove, pictureList }) {
@@ -22,28 +22,27 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
     };
   });
   if (tile.name === "") {
-    return <div className="Board" ref={drop} key={tile.pos}></div>;
+    return <div className="Board" ref={drop} key={tile.pos} style={{position: "relative", width: "2rem", height: "2rem"}}></div>;
   }
   const picture = pictureList.find((picture) => {
     return picture.name === tile.name;
   });
   return (
-    <div className="Board" ref={drop}>
+    <div className="Board" ref={drop} style = {{position: "relative", width: "2rem", height: "2rem"}}>
       <div key={tile.pos}>
         <img
           src="https://cdn.icon-icons.com/icons2/930/PNG/512/cross_icon-icons.com_72347.png" // Insérer l'URL de l'image de suppression
           alt="Remove"
-          className="RemoveButton"
           onClick={onRemove} // Déclencher la fonction onRemove lors du clic sur l'image
-          style={{ width: "10px", height: "10px" }}
+          style={{position: "absolute", top: 0, right: 0, width: "0.5rem", height: "0.5rem", zIndex: 1, cursor: "pointer"}}
         />
-        <Picture url={picture.url} id={picture.id} />
+        <Picture url={picture.url} id={picture.id}  />
       </div>
     </div>
   );
 }
 
-export default function Board() {
+export default function Board({size}) {
   const [pictureList, setPictureList] = useState([]);
   let newImages = [];
   useEffect(() => {
@@ -84,8 +83,10 @@ export default function Board() {
       return newBoards;
     });
   };
-  let boards = board.board.map((tile) => {
-    return (
+  let boards = [];
+  for (let i = 0; i < board.board.length; i += size) {
+    const tilesInRow = board.board.slice(i, i + size);
+    const row = tilesInRow.map((tile) => (
       <Tile
         key={tile.pos}
         tile={tile}
@@ -93,16 +94,25 @@ export default function Board() {
         onRemove={() => handleRemove(tile.pos)}
         pictureList={pictureList}
       />
+    ));
+    boards.push(
+      <div key={i / size} className="board-row">
+        {row}
+      </div>
     );
-  });
+  }
+
+
   return (
     <>
-      <div className="Pictures">
-        {pictureList.map((picture) => (
-          <Picture key={picture.id} url={picture.url} id={picture.id} />
-        ))}
+  <div >
+    {pictureList.map((picture) => (
+      <div key={picture.id} className="picture-container">
+        <Picture url={picture.url} id={picture.id} />
       </div>
-      <div className="Boards">{boards}</div>
-    </>
+    ))}
+  </div>
+  <div className="Boards">{boards}</div>
+</>
   );
 }
