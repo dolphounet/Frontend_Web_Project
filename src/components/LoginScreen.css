@@ -9,15 +9,17 @@ p {
 button {
   font-size: 1rem;
   border: 0rem;
-  background-color: rgb(23, 146, 153);
-  color: rgb(136, 57, 239);
+  background-color: white;
 }
 
+button:hover {
+  background-color: lightgrey;
+  border-radius: 0.5rem;
+  border: 0rem;
+}
 input {
   margin: 0.5rem;
   border-radius: 0.5rem;
-  border: 3px solid rgb(23, 146, 153);
-  background-color: rgb(239, 241, 245);
 }
 
 input[type="text"],
@@ -30,20 +32,19 @@ input[type="password"] {
 input[type="text"]:focus,
 input[type="password"]:focus {
   outline: none;
-  border: 3px solid rgb(30, 102, 245);
 }
 
 input[type="submit"] {
   padding: 0.2rem 1rem;
+  border: 0.1rem solid black;
+  background-color: white;
 }
-
 input[type="submit"]:hover {
-  background-color: rgb(30, 102, 245);
+  background-color: lightgrey;
+  border-radius: 0.5rem;
 }
-
 .Login-Screen {
   align-items: center;
-  background-color: rgb(23, 146, 153);
   border-radius: 0.5rem;
   max-width: 15rem;
 }

@@ -15,8 +15,17 @@ export default function App({ size }) {
     }
     return newBoard;
   });
+  function resetBoard() {
+    setBoard(() => {
+      let newBoard = [];
+      for (let i = 0; i < size * size; i++) {
+        newBoard.push({ name: "", pos: i + 1 });
+      }
+      return newBoard;
+    });
+  }
   return (
-    <BoardContext.Provider value={{ board, setBoard }}>
+    <BoardContext.Provider value={{ board, setBoard, resetBoard }}>
       <DndProvider backend={HTML5Backend}>
         <div className="App">
           <Menu />

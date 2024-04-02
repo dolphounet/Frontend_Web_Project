@@ -12,3 +12,23 @@ ul {
   list-style-type: none;
   margin-left: -1.5rem;
 }
+
+button {
+  color: black;
+}
+
+.Create button:hover {
+  background-color: lightgrey;
+  border-radius: 0.5rem;
+  border: 0rem;
+}
+
+.Create button {
+  background: none;
+  position: fixed;
+  bottom: 3rem;
+  right: 0rem;
+  align-items: center;
+  font-size: 3rem;
+  color: black;
+}

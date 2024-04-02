@@ -4,12 +4,13 @@ import { MdOutlineLogout } from "react-icons/md";
 import LoginScreen from "./LoginScreen";
 import Projects from "./Projects";
 import "./Menu.css";
+import { BoardContext } from "../App";
 
 export const UserContext = createContext();
 
 function MenuButton({ display, switchMethod }) {
   return (
-    <div className="Menu-Wrapper" style={{ display: display }}>
+    <div style={{ display: display, backgroundColor: "white" }}>
       <button className="Menu-Button" onClick={switchMethod}>
         <RxHamburgerMenu />
       </button>
@@ -27,11 +28,14 @@ function QuitButton({ switchMethod }) {
   );
 }
 
-function LogOut() {
+function LogOut({ setProjectID }) {
+  const board = useContext(BoardContext);
   const user = useContext(UserContext);
   function handleLogOut(event) {
     event.preventDefault();
     user.setIsLoggedIn("");
+    board.resetBoard();
+    setProjectID("Null");
   }
   if (!user.isLoggedIn) {
     return <></>;
@@ -48,6 +52,8 @@ function LogOut() {
 export default function Menu() {
   const [display, setDisplay] = useState(["", "none"]);
   const [isLoggedIn, setIsLoggedIn] = useState("");
+  const [projectID, setProjectID] = useState("Null");
+
   function switchMethod() {
     const nextDisplay = display.slice();
     if (nextDisplay[0] === "none") {
@@ -66,8 +72,8 @@ export default function Menu() {
         <QuitButton switchMethod={switchMethod} />
         <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
           <LoginScreen />
-          <LogOut />
-          <Projects />
+          <LogOut setProjectID={setProjectID} />
+          <Projects projectID={projectID} setProjectID={setProjectID} />
         </UserContext.Provider>
       </div>
     </>
