@@ -34,15 +34,23 @@ function Tile({ tile, onDrop, onRemove, pictureList }) {
           src="https://cdn.icon-icons.com/icons2/930/PNG/512/cross_icon-icons.com_72347.png" // Insérer l'URL de l'image de suppression
           alt="Remove"
           onClick={onRemove} // Déclencher la fonction onRemove lors du clic sur l'image
-          style={{position: "absolute", top: 0, right: 0, width: "0.5rem", height: "0.5rem", zIndex: 1, cursor: "pointer"}}
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            width: "0.5rem",
+            height: "0.5rem",
+            zIndex: 1,
+            cursor: "pointer",
+          }}
         />
-        <Picture url={picture.url} id={picture.id}  />
+        <Picture url={picture.url} id={picture.id} />
       </div>
     </div>
   );
 }
 
-export default function Board({size}) {
+export default function Board({ size }) {
   const [pictureList, setPictureList] = useState([]);
   let newImages = [];
   useEffect(() => {
@@ -76,7 +84,6 @@ export default function Board({size}) {
   };
 
   const handleRemove = (index) => {
-    console.log(index);
     board.setBoard((prevBoard) => {
       let newBoards = [...prevBoard];
       newBoards[index - 1] = { name: "", pos: index };
@@ -98,10 +105,9 @@ export default function Board({size}) {
     boards.push(
       <div key={i / size} className="board-row">
         {row}
-      </div>
+      </div>,
     );
   }
-
 
   return (
     <>
