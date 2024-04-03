@@ -1,0 +1,39 @@
+.Menu {
+  align-items: left;
+  border-radius: 0.5rem 0rem 0rem 0.5rem;
+  min-width: 15rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-height: 100vh;
+}
+
+.Menu-Button,
+.Quit-Button {
+  color: black;
+  border-radius: 0.5rem;
+  font-size: 2rem;
+  max-height: 2.2rem;
+}
+.Quit-Button {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  align-items: center;
+}
+.Menu-Button {
+  background-color: white;
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.LogOut-Button {
+  background: none;
+  position: fixed;
+  bottom: -0.5rem;
+  right: 0rem;
+  align-items: center;
+  font-size: 3rem;
+  color: black;
+}
