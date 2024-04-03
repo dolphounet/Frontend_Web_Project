@@ -10,7 +10,7 @@ export const BoardContext = createContext({});
 export default function App({ size }) {
   const [board, setBoard] = useState(() => {
     let newBoard = [];
-    for (let i = 0; i < size * (size-2); i++) {
+    for (let i = 0; i < size * (size - 2); i++) {
       newBoard.push({ name: "", pos: i + 1 });
     }
     return newBoard;
@@ -18,7 +18,7 @@ export default function App({ size }) {
   function resetBoard() {
     setBoard(() => {
       let newBoard = [];
-      for (let i = 0; i < size * size; i++) {
+      for (let i = 0; i < size * (size - 2); i++) {
         newBoard.push({ name: "", pos: i + 1 });
       }
       return newBoard;
